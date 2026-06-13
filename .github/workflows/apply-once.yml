@@ -1,41 +1,35 @@
-name: Apply verified artifact once
+name: Apply verified source package once
 
 on:
-  push:
+  pull_request:
     branches: [main]
-  schedule:
-    - cron: "*/5 * * * *"
+    types: [closed]
   workflow_dispatch:
 
 permissions:
-  actions: read
   contents: write
 
 jobs:
   apply:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.ref == 'automation/rebuild-exact'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout trusted main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      - name: Download fixed verified artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: verified-website-combination
-          path: verified
-          run-id: 27471183118
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Replace repository with verified source
+      - name: Replace repository with verified source package
         shell: bash
         run: |
           set -euo pipefail
-          rsync -a --delete --exclude='.git' --exclude='.github' verified/ ./
-          rm -rf merge .github/workflows
-          mkdir -p .github/workflows
+          cp artifacts/final-site.tar.gz /tmp/final-site.tar.gz
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          tar -xzf /tmp/final-site.tar.gz -C .
+          mkdir -p public/images .github/workflows
+          curl -fsSL https://raw.githubusercontent.com/Satte882/DPPFOR-Astro-Site/main/public/images/logo.png -o public/images/logo.png
+          curl -fsSL https://raw.githubusercontent.com/Satte882/DPPFOR-Astro-Site/main/public/favicon.png -o public/favicon.png
           cat > .github/workflows/verify.yml <<'YAML'
           name: Verify website
 
@@ -61,7 +55,7 @@ jobs:
                 - run: npm run build
           YAML
 
-      - name: Commit final website
+      - name: Commit final website to main
         shell: bash
         run: |
           set -euo pipefail
