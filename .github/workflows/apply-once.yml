@@ -26,42 +26,16 @@ jobs:
           repository: Satte882/DPPFOR-Astro-Site
           path: brand-source
 
-      - name: Replace repository with verified source package
+      - name: Stage verified final source
         shell: bash
         run: |
           set -euo pipefail
-          cp artifacts/final-site.tar.gz /tmp/final-site.tar.gz
-          cp brand-source/public/images/logo.png /tmp/logo.png
-          cp brand-source/public/favicon.png /tmp/favicon.png
-          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          tar -xzf /tmp/final-site.tar.gz -C .
-          mkdir -p public/images .github/workflows
-          cp /tmp/logo.png public/images/logo.png
-          cp /tmp/favicon.png public/favicon.png
-          cat > .github/workflows/verify.yml <<'YAML'
-          name: Verify website
-
-          on:
-            push:
-              branches: [main]
-            workflow_dispatch:
-
-          permissions:
-            contents: read
-
-          jobs:
-            verify:
-              runs-on: ubuntu-latest
-              steps:
-                - uses: actions/checkout@v4
-                - uses: actions/setup-node@v4
-                  with:
-                    node-version: 22
-                    cache: npm
-                - run: npm ci
-                - run: npm run lint
-                - run: npm run build
-          YAML
+          rm -rf /tmp/final-site
+          mkdir -p /tmp/final-site/public/images
+          tar -xzf artifacts/final-site.tar.gz -C /tmp/final-site
+          cp brand-source/public/images/logo.png /tmp/final-site/public/images/logo.png
+          cp brand-source/public/favicon.png /tmp/final-site/public/favicon.png
+          rsync -a --delete --exclude='.git' --exclude='.github' /tmp/final-site/ ./
 
       - name: Commit final website to main
         shell: bash
