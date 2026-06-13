@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogPosts } from '../../data/blogPosts';
+const featuredPost = blogPosts[0];
+const remainingPosts = blogPosts.slice(1);
+---
+<BaseLayout title="DPPFOR Blog – Wissen für Handwerksbetriebe" description="Praxistipps zu Geldfluss, offenen Posten, Büroorganisation und 0Admin.">
+  <main class="subpage-shell blog-page">
+    <header class="subpage-topbar"><a class="brand" href="/"><img class="brand-logo" src="/images/logo.svg" alt="" /><span><strong>DPPFOR</strong><small>Blog</small></span></a><nav class="topnav"><a href="/">Start</a><a href="/rechner/">Geldfluss prüfen</a><a href="/cockpit/">Cockpit</a></nav></header>
+    <section class="subpage-hero"><p class="micro">Magazin</p><h1>Wissen für Chefs, die aus Arbeit schneller Zahlung machen.</h1><p>Konkrete Beiträge zu offenen Rechnungen, Büroentlastung und sauberem Geldfluss. Ohne Software-Blabla.</p></section>
+    <section class="blog-feature"><a class="blog-feature-card" href={`/blog/${featuredPost.slug}/`}><span>{featuredPost.category}</span><h2>{featuredPost.title}</h2><p>{featuredPost.description}</p><small>{featuredPost.readTime} Lesezeit</small></a></section>
+    <section class="blog-grid">{remainingPosts.map((post) => <article class="blog-card"><a href={`/blog/${post.slug}/`}><span>{post.category}</span><h2>{post.title}</h2><p>{post.description}</p><small>{post.readTime} Lesezeit</small></a></article>)}</section>
+  </main>
+</BaseLayout>
