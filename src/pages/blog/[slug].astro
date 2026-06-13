@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogPosts } from '../../data/blogPosts';
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+---
+<BaseLayout title={`${post.title} – DPPFOR Blog`} description={post.description}>
+  <main class="subpage-shell blog-page blog-article-page">
+    <header class="subpage-topbar"><a class="brand" href="/"><img class="brand-logo" src="/images/logo.svg" alt="" /><span><strong>DPPFOR</strong><small>Blog</small></span></a><nav class="topnav"><a href="/blog/">Blog</a><a href="/rechner/">Geldfluss prüfen</a></nav></header>
+    <article class="blog-article">
+      <a href="/blog/">← Zurück zum Blog</a><p class="micro">{post.category}</p><h1>{post.title}</h1><p class="article-lead">{post.description}</p>
+      <div class="article-meta"><span>{post.author}</span><span>{post.readTime} Lesezeit</span></div>
+      <div class="article-tags">{post.tags.map((tag) => <span>{tag}</span>)}</div>
+      <div class="article-body" set:html={post.content} />
+    </article>
+    <section class="article-cta"><p class="micro">Nächster Schritt</p><h2>Prüfen, wo in Ihrem Betrieb Geld hängen bleibt.</h2><div class="closing-actions"><a class="button button--warm" href="/rechner/">Geldfluss prüfen</a><button class="button button--ghost" type="button" data-dialog-open="contact">Gespräch anfragen</button></div></section>
+  </main>
+</BaseLayout>
