@@ -61,12 +61,12 @@ test("zeigt die gewünschte FAQ-Struktur", async ({ page }) => {
   await expect(page.getByText('Ersetzt 0Admin meine Buchhaltungs- oder Handwerkersoftware?')).toBeVisible();
 });
 
-test("stellt die Site-1-Unterseiten bereit", async ({ page }) => {
-  await page.goto('/rechner/');
+test("stellt die Site-1-Unterseiten als statische Seiten bereit", async ({ page }) => {
+  await page.goto('/rechner/index.html');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Was kosten offene Posten wirklich?');
-  await page.goto('/cockpit/');
+  await page.goto('/cockpit/index.html');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Ein offener Zahlungsfall auf einen Blick.');
-  await page.goto('/blog/');
+  await page.goto('/blog/index.html');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Wissen für Chefs');
 });
 
