@@ -20,16 +20,24 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Checkout Site 1 brand assets
+        uses: actions/checkout@v4
+        with:
+          repository: Satte882/DPPFOR-Astro-Site
+          path: brand-source
+
       - name: Replace repository with verified source package
         shell: bash
         run: |
           set -euo pipefail
           cp artifacts/final-site.tar.gz /tmp/final-site.tar.gz
+          cp brand-source/public/images/logo.png /tmp/logo.png
+          cp brand-source/public/favicon.png /tmp/favicon.png
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           tar -xzf /tmp/final-site.tar.gz -C .
           mkdir -p public/images .github/workflows
-          curl -fsSL https://raw.githubusercontent.com/Satte882/DPPFOR-Astro-Site/main/public/images/logo.png -o public/images/logo.png
-          curl -fsSL https://raw.githubusercontent.com/Satte882/DPPFOR-Astro-Site/main/public/favicon.png -o public/favicon.png
+          cp /tmp/logo.png public/images/logo.png
+          cp /tmp/favicon.png public/favicon.png
           cat > .github/workflows/verify.yml <<'YAML'
           name: Verify website
 
