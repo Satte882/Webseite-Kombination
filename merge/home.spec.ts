@@ -4,7 +4,7 @@ test("zeigt Site-1-Marke und 0Admin-Produktkern", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Ihr Betrieb arbeitet");
   await expect(page.locator(".s1-brand img")).toHaveAttribute("src", "/images/logo.png");
-  await expect(page.getByText("0Admin von DPPFOR", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("0Admin von DPPFOR", { exact: true })).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
 
@@ -25,7 +25,7 @@ test("zeigt die korrigierte Produktlogik im Scroll-Flow", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Ihre Rechnung ist fertig. Ab jetzt übernimmt 0Admin.")).toBeVisible();
   await expect(page.getByText("Rechnung ausstellen")).toHaveCount(0);
-  await expect(page.getByText("Bestehende Rechnungssoftware")).toBeVisible();
+  await expect(page.locator("[data-source-label]")).toHaveText("Bestehende Rechnungssoftware");
 });
 
 test("versteckt Flugchips vor der Extraktion", async ({ page }) => {
