@@ -1,0 +1,115 @@
+name: Rebuild exact website combination
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "merge/**"
+      - ".github/workflows/rebuild-exact-combination.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          path: target
+          fetch-depth: 0
+
+      - name: Checkout Site 1 trunk
+        uses: actions/checkout@v4
+        with:
+          repository: Satte882/DPPFOR-Astro-Site
+          path: source1
+
+      - name: Checkout Site 2 donor
+        uses: actions/checkout@v4
+        with:
+          repository: Satte882/DPP_Blatt_Flow
+          path: source2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build Site 1 static pages
+        working-directory: source1
+        run: |
+          npm ci
+          npm run check
+          npm run build
+
+      - name: Assemble exact combination
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/combination-merge
+          cp -a target/merge/. /tmp/combination-merge/
+
+          rsync -a --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='merge' \
+            source2/ target/
+
+          mkdir -p target/app target/components target/data target/tests target/public/images
+          cp /tmp/combination-merge/page.tsx target/app/page.tsx
+          cp /tmp/combination-merge/layout.tsx target/app/layout.tsx
+          cp /tmp/combination-merge/site-one.css target/app/site-one.css
+          cp /tmp/combination-merge/site-one-sections.tsx target/components/site-one-sections.tsx
+          cp /tmp/combination-merge/faq-section.tsx target/components/faq-section.tsx
+          cp /tmp/combination-merge/demo.ts target/data/demo.ts
+          cp /tmp/combination-merge/home.spec.ts target/tests/home.spec.ts
+          cp /tmp/combination-merge/README.md target/README.md
+
+          cp source1/public/images/logo.png target/public/images/logo.png
+          cp source1/public/favicon.png target/public/favicon.png
+
+          rm -rf target/public/rechner target/public/cockpit target/public/blog target/public/styles target/public/scripts
+          cp -a source1/dist/rechner target/public/rechner
+          cp -a source1/dist/cockpit target/public/cockpit
+          cp -a source1/dist/blog target/public/blog
+          cp -a source1/dist/styles target/public/styles
+          cp -a source1/dist/scripts target/public/scripts
+          cp -a source1/dist/images/. target/public/images/
+
+      - name: Install combined website
+        working-directory: target
+        run: npm ci
+
+      - name: Lint combined website
+        working-directory: target
+        run: npm run lint
+
+      - name: Build combined website
+        working-directory: target
+        run: npm run build
+
+      - name: Install browser for verification
+        working-directory: target
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser regression tests
+        working-directory: target
+        run: npm test
+
+      - name: Commit verified combination
+        working-directory: target
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Rebuild combination with original flow and brand assets"
+          git push origin main
