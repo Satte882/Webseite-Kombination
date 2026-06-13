@@ -1,7 +1,7 @@
 name: Rebuild exact website combination
 
 on:
-  push:
+  pull_request:
     branches: [main]
     paths:
       - "merge/**"
@@ -15,11 +15,12 @@ jobs:
   rebuild:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout target repository
+      - name: Checkout target branch
         uses: actions/checkout@v4
         with:
           path: target
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Checkout Site 1 trunk
         uses: actions/checkout@v4
@@ -99,9 +100,11 @@ jobs:
         working-directory: target
         run: npm test
 
-      - name: Commit verified combination
+      - name: Commit verified combination to pull-request branch
         working-directory: target
         shell: bash
+        env:
+          TARGET_BRANCH: ${{ github.head_ref }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -112,4 +115,4 @@ jobs:
             exit 0
           fi
           git commit -m "Rebuild combination with original flow and brand assets"
-          git push origin main
+          git push origin HEAD:"${TARGET_BRANCH}"
