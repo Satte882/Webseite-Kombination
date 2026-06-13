@@ -84,13 +84,34 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run browser regression tests
+        id: tests
+        continue-on-error: true
         working-directory: target
-        run: npm test
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee test-output.log
+
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-diagnostics
+          path: |
+            target/test-output.log
+            target/test-results
+            target/playwright-report
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Fail when browser tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1
 
       - name: Prepare verified source artifact
         shell: bash
         run: |
-          rm -rf target/.git target/.github target/merge target/node_modules target/.next target/out target/test-results target/playwright-report
+          rm -rf target/.git target/.github target/merge target/node_modules target/.next target/out target/test-results target/playwright-report target/test-output.log
 
       - name: Upload verified combination
         uses: actions/upload-artifact@v4
