@@ -30,12 +30,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf /tmp/final-site
-          mkdir -p /tmp/final-site/public/images
-          tar -xzf artifacts/final-site.tar.gz -C /tmp/final-site
-          cp brand-source/public/images/logo.png /tmp/final-site/public/images/logo.png
-          cp brand-source/public/favicon.png /tmp/final-site/public/favicon.png
-          rsync -a --delete --exclude='.git' --exclude='.github' /tmp/final-site/ ./
+          FINAL_STAGE="${RUNNER_TEMP}/final-site-${GITHUB_RUN_ID}"
+          BRAND_STAGE="${RUNNER_TEMP}/brand-source-${GITHUB_RUN_ID}"
+          mkdir -p "${FINAL_STAGE}/public/images"
+          tar -xzf artifacts/final-site.tar.gz -C "${FINAL_STAGE}"
+          cp brand-source/public/images/logo.png "${FINAL_STAGE}/public/images/logo.png"
+          cp brand-source/public/favicon.png "${FINAL_STAGE}/public/favicon.png"
+          mv brand-source "${BRAND_STAGE}"
+          rsync -a --delete --exclude='.git' --exclude='.github' "${FINAL_STAGE}/" ./
 
       - name: Commit final website to main
         shell: bash
