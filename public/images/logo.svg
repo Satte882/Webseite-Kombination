@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">DPPFOR</title>
+  <rect width="64" height="64" rx="16" fill="#f7f3e9"/>
+  <path d="M17 17h14c10 0 17 5 17 15s-7 15-17 15H17V17Zm12 22c7 0 10-2 10-7s-3-7-10-7h-3v14h3Z" fill="#101815"/>
+</svg>
