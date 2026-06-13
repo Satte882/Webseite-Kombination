@@ -1,29 +1,32 @@
 # DPPFOR / 0Admin – kombinierte Website
 
-Eigenständige, statisch exportierte Astro-Website für DPPFOR und das Produkt 0Admin.
+Diese Website verbindet zwei unveränderte Quell-Repositories:
 
-## Herkunft der Konzeption
+- **Site 1 – Stamm:** `Satte882/DPPFOR-Astro-Site`
+- **Site 2 – Spender:** `Satte882/DPP_Blatt_Flow`
 
-- **Stamm:** `Satte882/DPPFOR-Astro-Site`
-- **Spender:** `Satte882/DPP_Blatt_Flow`
-- Die beiden Quell-Repositories werden nicht verändert.
-- Der Rechnungs-Scroll-Flow, die Datenzuordnung, die menschliche Freigabe und die FAQ-Logik wurden in dieser eigenständigen Codebasis zusammengeführt.
-- Dashboard und generische Benefits aus dem Spender wurden bewusst nicht übernommen.
+## Kombinationslogik
 
-## Lokal starten
+Site 1 liefert Markenassets, Navigation, Hero, Problemführung, Geldfluss-Check, Cockpit, Blog, Conversion und rechtliche Unterseiten.
+
+Site 2 liefert unverändert den React-/GSAP-Rechnungs-Scroll-Flow, die Datenzuordnung, den Reduced-Motion-Fallback, die Freigabe-Interaktion und die FAQ-Darstellung.
+
+Nicht übernommen wurden das Finanzdashboard und die generischen Benefits aus Site 2.
+
+## Lokale Nutzung
 
 ```bash
 npm install
-npm run check
+npm run lint
 npm run build
 npm run dev
 ```
 
-## Verifikation
+## Browser-Verifikation
 
 ```bash
 npm run test:install
-npm run test
+npm test
 ```
 
-Die Website bleibt bis zum Launch site-wide `noindex`, `nofollow` und `noarchive`.
+Die Website bleibt bis zum Launch `noindex`, `nofollow` und `noarchive`.

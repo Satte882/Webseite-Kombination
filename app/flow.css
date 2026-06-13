@@ -1,0 +1,60 @@
+/* Persistent scroll-flow stage */
+.story--flow .story__stage-frame { isolation: isolate; min-height: 650px; }
+.story--flow .story__stage-frame::before { z-index: 0; }
+.story--flow .story__scenes { padding-bottom: 26vh; }
+.story--flow .story-scene { min-height: 92vh; opacity: 1; }
+.story-flow__ambient { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.story-flow__ambient span { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(185,101,50,.12), transparent 68%); filter: blur(3px); }
+.story-flow__ambient span:nth-child(1) { top: -90px; right: 8%; }
+.story-flow__ambient span:nth-child(2) { bottom: -120px; left: -40px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(45,114,81,.09), transparent 68%); }
+.story-flow__ambient span:nth-child(3) { top: 40%; left: 48%; width: 180px; height: 180px; background: radial-gradient(circle, rgba(46,99,129,.08), transparent 70%); }
+.story-flow__source-label { position: absolute; z-index: 10; top: 32px; left: 34px; border: 1px solid rgba(23,35,31,.13); border-radius: 999px; padding: 8px 11px; background: rgba(255,253,248,.88); box-shadow: 0 10px 28px rgba(23,35,31,.08); color: #59665f; font: 750 .62rem/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.story-flow__invoice { position: absolute; z-index: 8; top: 50%; left: 50%; width: min(480px, 72%); transform: translate(-50%, -50%); will-change: transform; }
+.story-flow__invoice .invoice-document { width: 100%; }
+.story-flow__panel { position: absolute; z-index: 6; right: 4%; top: 50%; width: 57%; transform: translateY(-50%); pointer-events: none; }
+.story-flow__panel--email { width: 59%; }
+.story-flow__panel--inbox { width: 55%; }
+.story-flow__panel--database { width: 58%; }
+.story-flow__panel--due { width: 58%; }
+.story-flow__panel--reminder { width: 58%; }
+.story-flow__panel > * { width: 100%; }
+.story-flow__scan { position: absolute; z-index: 12; top: 50%; left: 2%; width: 96%; height: 2px; border-radius: 99px; background: linear-gradient(90deg, transparent, rgba(185,101,50,.95) 18% 82%, transparent); box-shadow: 0 0 18px rgba(185,101,50,.55); pointer-events: none; }
+.story-flow__lines { position: absolute; z-index: 9; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.story-flow__lines path { fill: none; stroke: rgba(185,101,50,.72); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 2px 5px rgba(185,101,50,.22)); }
+.story-flow__flyers { position: absolute; z-index: 11; inset: 0; pointer-events: none; }
+.story-flow__flyers span { position: absolute; top: 0; left: 0; max-width: 170px; overflow: hidden; visibility: hidden; opacity: 0; border: 1px solid rgba(185,101,50,.38); border-radius: 999px; padding: 7px 11px; background: rgba(255,253,248,.98); box-shadow: 0 12px 28px rgba(23,35,31,.17); color: var(--accent-dark); font: 750 .63rem/1.1 "IBM Plex Mono", monospace; text-overflow: ellipsis; white-space: nowrap; transform: translate3d(-999px, -999px, 0) translate(-50%, -50%) scale(.9); will-change: transform, opacity; }
+.invoice-document--flow [data-invoice-enter] { will-change: transform, opacity; }
+.invoice-document--flow [data-invoice-field] { position: relative; border-radius: 5px; transition: background .16s ease, box-shadow .16s ease; }
+.invoice-document--flow [data-invoice-field].is-extracting { z-index: 2; background: rgba(185,101,50,.14); box-shadow: 0 0 0 4px rgba(185,101,50,.1); }
+.invoice-document--flow .invoice-due-field.is-overdue { background: #f8dfdc; box-shadow: 0 0 0 1px rgba(183,55,45,.26); }
+.invoice-document--flow .invoice-due-field.is-overdue dt,
+.invoice-document--flow .invoice-due-field.is-overdue dd { color: var(--danger); }
+.email-envelope--flow { position: relative; }
+.email-envelope__bar strong { margin-left: 7px; color: #56645d; font-size: .68rem; }
+.email-envelope__attachment > div { display: grid; gap: 2px; }
+.email-envelope__pdf { display: inline-grid; width: 30px; height: 22px; place-items: center; border-radius: 4px; background: #fffdf8; color: var(--accent-dark); box-shadow: inset 0 0 0 1px rgba(185,101,50,.35); font: 800 .54rem/1 "IBM Plex Mono", monospace; opacity: 0; visibility: hidden; }
+.email-envelope__attachment small { color: #7a857f; font-size: .58rem; font-weight: 600; }
+.story-flow .system-inbox__dropzone { position: relative; min-height: 150px; overflow: hidden; }
+.story-flow .system-inbox__dropzone::after { content: "Dokument wird zugeordnet"; position: absolute; right: 10px; bottom: 8px; color: var(--accent-dark); font: 650 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+.extraction-panel--database { position: relative; overflow: hidden; }
+.database-rail { display: flex; gap: 5px; margin: -5px 0 13px; }
+.database-rail span { height: 3px; flex: 1; border-radius: 99px; background: #e3ddd2; }
+.database-rail span:first-child { background: var(--accent); }
+.story-flow .extraction-grid { gap: 7px; }
+.story-flow .extraction-field { position: relative; min-height: 82px; overflow: hidden; transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease; }
+.story-flow .extraction-field::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 36%, rgba(185,101,50,.12) 50%, transparent 64%); opacity: 0; transform: translateX(-100%); }
+.story-flow .extraction-field.is-receiving { border-color: rgba(185,101,50,.55); background: #fffaf1; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(23,35,31,.08); }
+.story-flow .extraction-field.is-receiving::after { opacity: 1; transform: translateX(100%); transition: transform .35s ease; }
+.story-flow .extraction-field.is-populated { border-color: rgba(45,114,81,.4); background: #f3faf5; }
+.story-flow .extraction-field [data-db-value] { opacity: 0; transition: opacity .14s ease; }
+.story-flow .extraction-field--warning [data-db-value] { opacity: 1; }
+.story-flow .extraction-field.is-populated small { color: var(--success); }
+.due-flow-progress { position: absolute; right: 7%; bottom: 16%; left: 7%; height: 3px; border-radius: 99px; background: linear-gradient(90deg, #7d8b83 0 28%, #b47c41 28% 72%, var(--danger) 72%); opacity: .3; }
+.story-flow__panel--reminder .reminder-document { transform-origin: center; }
+@media (max-width: 1100px) and (min-width: 901px) {
+  .story-flow__invoice { width: min(430px, 72%); }
+  .story-flow__panel--database { width: 59%; }
+  .story-flow .extraction-grid { grid-template-columns: repeat(2, 1fr); }
+  .story-flow .extraction-field { min-height: 68px; padding: 9px; }
+  .story-flow .extraction-field strong { font-size: .67rem; }
+}

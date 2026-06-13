@@ -1,0 +1,8 @@
+.story-flow__panel--email > .email-envelope,
+.story-flow__panel--inbox > .system-inbox,
+.story-flow__panel--database > .extraction-panel,
+.story-flow__panel--due,
+.story-flow__panel--reminder {
+  opacity: 1;
+  visibility: visible;
+}
