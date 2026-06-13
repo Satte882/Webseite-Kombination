@@ -1,0 +1,24 @@
+---
+const faqItems = [
+  ['Muss ich meine Rechnungen direkt in 0Admin erstellen?', 'Nein. Sie erstellen Ihre Rechnungen weiterhin in Ihrer bestehenden Software. 0Admin übernimmt den nachfolgenden Geldfluss: Rechnung erfassen, Fälligkeit überwachen, nächsten Schritt vorbereiten und den Vorgang bis zur Zahlung oder Klärung sichtbar halten.'],
+  ['Wie gelangen Rechnungen in das System?', 'Der dargestellte Ablauf zeigt den Eingang über eine dafür vorgesehene E-Mail-Adresse. Weitere Eingangskanäle können ergänzt werden. Entscheidend ist: Der Betrieb muss seine bestehende Rechnungssoftware nicht ersetzen.'],
+  ['Werden Zahlungserinnerungen automatisch verschickt?', '0Admin kann Vorgänge vorbereiten und nach festgelegten Regeln bearbeiten. Prüfbedürftige Fälle bleiben sichtbar. Für den dargestellten Ablauf ist vor dem Versand eine bewusste Freigabe vorgesehen.'],
+  ['Kann ich eine Nachricht vor dem Versand bearbeiten?', 'Ja. Der vorbereitete Text bleibt vor dem Versand prüf- und bearbeitbar. Änderungen, Freigabe und Versandstatus werden im Vorgang nachvollziehbar dokumentiert.'],
+  ['Was passiert bei unsicher erkannten Rechnungsdaten?', 'Unsichere Felder werden nicht still übernommen. 0Admin markiert sie als prüfbedürftig und stoppt den relevanten Folgeschritt, bis die Angabe bestätigt oder korrigiert wurde.'],
+  ['Ersetzt 0Admin meine Buchhaltungs- oder Handwerkersoftware?', 'Nein. 0Admin ist das operative Geldfluss-Office zwischen erbrachter Leistung und geklärter Zahlung. Finanzbuchhaltung, Steuerberatung und bestehende Fachsoftware bleiben bestehen.'],
+  ['Für welche Betriebe ist 0Admin gedacht?', 'Der Fokus liegt auf deutschen Handwerksbetrieben, insbesondere SHK-Betrieben mit etwa 5 bis 30 Mitarbeitenden und wiederkehrenden Rechnungs-, Fälligkeits- und Nachverfolgungsaufgaben.'],
+  ['Welche Entscheidungen bleiben beim Menschen?', 'Prüfbedürftige Daten, inhaltliche Änderungen, Ausnahmen und sensible Versandentscheidungen bleiben sichtbar und entscheidbar. Automatisierung bereitet vor; Verantwortung wird nicht in einer Blackbox versteckt.']
+];
+---
+<section id="faq" class="faq-section" aria-labelledby="faq-title">
+  <div class="faq-intro"><p class="micro">Fragen zum Ablauf</p><h2 id="faq-title">So fügt sich 0Admin in Ihren Betrieb ein.</h2><p>Antworten zu bestehender Rechnungssoftware, Datenübernahme, Freigaben und menschlicher Kontrolle.</p></div>
+  <div class="faq-items">{faqItems.map(([question, answer], index) => <details open={index === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div>
+</section>
+<section class="closing-stage" aria-labelledby="cta-title">
+  <p class="micro">Nächster Schritt</p><h2 id="cta-title">Wo hängt Ihr Geld gerade?</h2><p>Prüfen Sie, welche offenen Posten Ihren Betrieb heute bremsen und welche Fälle zuerst geklärt werden müssen.</p>
+  <div class="closing-actions"><a class="button button--dark" href="/rechner/">Geldfluss prüfen</a><button class="button button--outline-dark" type="button" data-dialog-open="contact">Gespräch anfragen</button></div>
+</section>
+<footer class="site-footer">
+  <div class="footer-brand"><img src="/images/logo.svg" alt="" aria-hidden="true" /><div><strong>DPPFOR</strong><p>Data, Process, Payments for Operations &amp; Revenue</p></div></div>
+  <nav aria-label="Footer-Navigation"><a href="/rechner/">Rechner</a><a href="/cockpit/">Cockpit</a><a href="/blog/">Blog</a><button type="button" data-dialog-open="impressum">Impressum</button><button type="button" data-dialog-open="datenschutz">Datenschutz</button></nav>
+</footer>
