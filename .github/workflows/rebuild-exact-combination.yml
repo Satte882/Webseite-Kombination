@@ -65,7 +65,7 @@ jobs:
           cp /tmp/combination-merge/home.spec.ts target/tests/home.spec.ts
           cp /tmp/combination-merge/README.md target/README.md
 
-          rsync -a --exclude='index.html' source1/dist/ target/public/
+          rsync -a --exclude='/index.html' source1/dist/ target/public/
 
       - name: Install combined website
         working-directory: target
