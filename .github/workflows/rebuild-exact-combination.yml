@@ -1,11 +1,8 @@
 name: Rebuild exact website combination
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "merge/**"
-      - ".github/workflows/rebuild-exact-combination.yml"
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -13,6 +10,7 @@ permissions:
 
 jobs:
   rebuild:
+    if: github.event_name != 'issues' || github.event.issue.title == 'Run final website rebuild'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout target repository
