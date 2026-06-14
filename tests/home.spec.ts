@@ -23,7 +23,7 @@ test("enthält eine persistente Rechnung und acht animierte Datenwege", async ({
 test("zeigt die korrigierte Produktlogik im Scroll-Flow", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(page.getByText("Ihre Rechnung ist fertig. Ab jetzt übernimmt 0Admin.")).toBeVisible();
+  await expect(page.getByText("Ihre Rechnung ist fertig. Ab jetzt behält 0Admin den weiteren Geldfluss im Blick.")).toBeVisible();
   await expect(page.getByText("Rechnung ausstellen")).toHaveCount(0);
   await expect(page.locator("[data-source-label]")).toHaveText("Bestehende Rechnungssoftware");
 });
@@ -97,4 +97,49 @@ test("hat keinen horizontalen Seitenüberlauf", async ({ page }) => {
   await page.goto("/");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
+});
+
+test("navigiert zu integrierten Unterseiten ohne index-html URLs", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Geldfluss prüfen" }).first().click();
+  await expect(page).toHaveURL(/\/rechner\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Was kosten offene Posten");
+
+  await page.goto("/cockpit/");
+  await expect(page).toHaveURL(/\/cockpit\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Ein offener Zahlungsfall");
+
+  await page.goto("/blog/");
+  await expect(page).toHaveURL(/\/blog\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Wissen für Chefs");
+
+  const hrefs = await page.locator("a").evaluateAll((links) => links.map((link) => link.getAttribute("href") || ""));
+  expect(hrefs.some((href) => href.includes("/index.html"))).toBe(false);
+});
+
+test("Rechner aktualisiert Liquiditätskennzahl", async ({ page }) => {
+  await page.goto("/rechner/");
+  await expect(page.getByText("Liquiditätsgewinn")).toBeVisible();
+  await page.getByLabel("Durchschnittlicher Zahlungsverzug").fill("40");
+  await expect(page.getByText(/Tage Zahlungsverzug reduziert/)).toBeVisible();
+});
+
+test("Cockpit bleibt interaktiv als Next Client Component", async ({ page }) => {
+  await page.goto("/cockpit/");
+  await page.getByRole("button", { name: /Vorschau/ }).click();
+  await expect(page.getByText("Vorschau Zahlungserinnerung")).toBeVisible();
+  await page.getByRole("button", { name: "Freigeben" }).click();
+  await expect(page.getByText("Erinnerung vorbereitet").first()).toBeVisible();
+});
+
+test("Blog und Rechtliches sind App-Router-Seiten", async ({ page }) => {
+  await page.goto("/blog/");
+  await page.locator('a[href="/blog/buerokratie-im-handwerk-wo-geld-wirklich-verloren-geht/"]').click();
+  await expect(page).toHaveURL(/\/blog\/buerokratie-im-handwerk-wo-geld-wirklich-verloren-geht\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Bürokratie im Handwerk");
+
+  await page.goto("/impressum/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Impressum");
+  await page.goto("/datenschutz/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Datenschutz");
 });

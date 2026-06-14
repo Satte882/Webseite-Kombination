@@ -55,7 +55,9 @@ export function ScrollFlowStory() {
       <div className="story__progress" aria-hidden="true"><span data-progress /></div>
       <div className="shell story__intro">
         <span className="eyebrow">Vom Dokument zum Geldfluss</span>
-        <h2>Eine Rechnung. Ein durchgehender Flow.</h2>
+        <h2>
+          Eine Rechnung. <span className="story__intro-nowrap">Ein durchgehender Flow.</span>
+        </h2>
         <p>Das Blatt kommt aus Ihrer bestehenden Rechnungssoftware, gelangt zu 0Admin und gibt seine relevanten Daten sichtbar an das System weiter.</p>
       </div>
       <div className="shell story__layout">

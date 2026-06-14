@@ -1,0 +1,300 @@
+/* Final visual alignment overrides for the Site-1 landing experience. */
+
+:root {
+  --s1-page-x: clamp(20px, 5vw, 78px);
+  --s1-page-max: 1480px;
+}
+
+/* Site-1 page rhythm: keep the large sections on one shared horizontal axis. */
+.s1-header__inner {
+  width: min(var(--s1-page-max), calc(100% - clamp(40px, 10vw, 156px)));
+}
+
+.s1-hero,
+.s1-problem,
+.s1-tools,
+.s1-contact,
+.s1-footer {
+  padding-right: max(var(--s1-page-x), calc((100vw - var(--s1-page-max)) / 2));
+  padding-left: max(var(--s1-page-x), calc((100vw - var(--s1-page-max)) / 2));
+}
+
+.s1-tools__inner {
+  width: min(1180px, 100%);
+}
+
+.s1-tools h2 {
+  max-width: 1180px;
+  font-size: clamp(2.3rem, 4.3vw, 4.7rem);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+}
+
+.s1-tools__title-line {
+  display: block;
+}
+
+/* Hero: keep the copy left-aligned, but center the two CTAs under it. */
+.s1-hero__bottom {
+  width: 100%;
+  max-width: none;
+  gap: clamp(8px, 1.2vw, 14px);
+}
+
+.s1-hero__bottom p {
+  max-width: 690px;
+}
+
+.s1-hero .s1-actions {
+  width: 100%;
+  justify-content: center;
+  margin-top: clamp(0px, .6vw, 8px);
+}
+
+/* Hero/problem transition: one continuous dark stage with the next section already present. */
+.s1-hero {
+  min-height: clamp(660px, calc(100svh - 72px), 820px);
+  padding-bottom: clamp(44px, 7vh, 82px);
+  background:
+    linear-gradient(to bottom, rgba(8, 11, 10, 0) 0%, rgba(8, 11, 10, .18) 58%, #080b0a 100%),
+    radial-gradient(circle at 82% 18%, rgba(46, 214, 155, .18), transparent 31rem),
+    radial-gradient(circle at 12% 88%, rgba(59, 130, 246, .16), transparent 32rem),
+    #080b0a;
+}
+
+.s1-problem {
+  margin-top: -1px;
+  padding-top: clamp(54px, 5vw, 82px);
+  background:
+    radial-gradient(circle at 12% -80px, rgba(59, 130, 246, .1), transparent 25rem),
+    radial-gradient(circle at 82% 260px, rgba(46, 214, 155, .08), transparent 30rem),
+    linear-gradient(180deg, #080b0a 0%, #080b0a 26%, #0d1210 100%);
+}
+
+/* Header: the primary money-flow link should read like the lower yellow CTA. */
+.s1-nav a[href="/rechner/"] {
+  border-color: #f2b96b;
+  background: #f2b96b;
+  color: #17120b;
+}
+
+.s1-nav a[href="/rechner/"]:hover {
+  border-color: #f2b96b;
+  background: #f2b96b;
+  color: #17120b;
+}
+
+/* Problem cards: keep cards compact; use vertical rhythm to reveal them one by one. */
+.s1-problem__wall {
+  gap: clamp(84px, 17vh, 190px);
+  padding-block: clamp(18px, 3vh, 42px);
+}
+
+.s1-problem__wall article {
+  min-height: 310px;
+  align-content: space-between;
+  gap: 24px;
+}
+
+.s1-problem__wall strong {
+  max-width: min(100%, 760px);
+}
+
+.s1-problem__wall p {
+  max-width: min(100%, 760px);
+}
+
+.s1-problem__wall article + article {
+  margin-top: clamp(18px, 5vh, 70px);
+}
+
+/* Remove beige Site-2 section bands from the home page. */
+.story,
+.approval-section,
+.faq {
+  background: #080b0a;
+  color: #f7f3e9;
+}
+
+.story {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.story__progress {
+  background: rgba(255, 255, 255, .08);
+}
+
+.story__progress span {
+  background: #2ed69b;
+}
+
+.story__intro h2,
+.story-scene h3,
+.approval-section .section-heading h2,
+.faq .section-heading h2,
+.faq__items summary {
+  color: #f7f3e9;
+}
+
+.story__intro p,
+.story-scene p,
+.story__stage-caption,
+.approval-section .section-heading p,
+.faq__items details p {
+  color: rgba(247, 243, 233, .68);
+}
+
+.story__intro .eyebrow {
+  color: #2ed69b;
+}
+
+@media (min-width: 700px) {
+  .story__intro-nowrap {
+    white-space: nowrap;
+  }
+}
+
+.approval-section .section-heading--wide {
+  max-width: 1180px;
+}
+
+.approval-section .section-heading p {
+  max-width: 1120px;
+}
+
+@media (min-width: 1180px) {
+  .approval-heading__nowrap,
+  .approval-copy__nowrap {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 900px) {
+  .s1-tools__title-line {
+    white-space: nowrap;
+  }
+}
+
+.s1-tools__grid > a[href="/rechner/"] {
+  border-color: #f2b96b;
+}
+
+.s1-tools__grid > a[href="/rechner/"]:hover {
+  border-color: #f2b96b;
+}
+
+.s1-tools__grid strong {
+  max-width: none;
+  font-size: clamp(1.65rem, 2.6vw, 2.85rem);
+  line-height: 1;
+}
+
+@media (min-width: 900px) {
+  .s1-tools__grid strong {
+    white-space: nowrap;
+  }
+}
+
+.story__stage-caption strong {
+  color: #f7f3e9;
+}
+
+.story__stage-frame {
+  border-color: rgba(255, 255, 255, .12);
+  background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .025));
+  box-shadow: inset 0 1px rgba(255, 255, 255, .12);
+}
+
+.story__stage-frame::before {
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.story-scene__number {
+  border-color: rgba(255, 255, 255, .18);
+  color: #2ed69b;
+}
+
+.approval-demo {
+  border-color: rgba(255, 255, 255, .12);
+  background: #fffdf8;
+  color: #17231f;
+}
+
+.approval-demo__history {
+  background: #f7f3e9;
+  color: #17231f;
+}
+
+.approval-demo__header h3,
+.approval-demo .reminder-document h3,
+.approval-demo .activity-timeline__item strong {
+  color: #17231f;
+}
+
+.approval-demo .reminder-document,
+.approval-demo .reminder-document p,
+.approval-demo .reminder-document dt,
+.approval-demo .reminder-document dd,
+.approval-demo .activity-timeline__item span {
+  color: #17231f;
+}
+
+.faq__items details {
+  border-top-color: rgba(255, 255, 255, .18);
+}
+
+.faq__items details:last-child {
+  border-bottom-color: rgba(255, 255, 255, .18);
+}
+
+.faq .eyebrow,
+.approval-section .eyebrow {
+  color: #2ed69b;
+}
+
+/* Reduced-motion/mobile fallback must match the same dark Site-1 band. */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .fallback-story {
+    background: #080b0a;
+    color: #f7f3e9;
+  }
+
+  .fallback-story__copy > span {
+    color: #2ed69b;
+  }
+
+  .fallback-story__copy h3 {
+    color: #f7f3e9;
+  }
+
+  .fallback-story__copy p {
+    color: rgba(247, 243, 233, .68);
+  }
+
+  .fallback-story__steps article {
+    border-color: rgba(255, 255, 255, .12);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .025));
+  }
+}
+
+@media (max-width: 900px) {
+  .s1-hero {
+    min-height: auto;
+    padding-bottom: 56px;
+  }
+
+  .s1-problem {
+    padding-top: 62px;
+  }
+
+  .s1-problem__wall {
+    gap: 28px;
+    padding-block: 0;
+  }
+
+  .s1-problem__wall article,
+  .s1-problem__wall article + article {
+    min-height: 260px;
+    margin-top: 0;
+  }
+}

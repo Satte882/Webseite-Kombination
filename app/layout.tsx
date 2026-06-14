@@ -6,6 +6,8 @@ import "@fontsource/ibm-plex-mono/600.css";
 import "./globals.css";
 import "./flow.css";
 import "./site-one.css";
+import "./subpages.css";
+import "./site-one-overrides.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dppfor.eu"),
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de">
+    <html lang="de" data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );

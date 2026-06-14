@@ -1,21 +1,30 @@
+import Link from "next/link";
+import Image from "next/image";
+
+const navLinks = [
+  { href: "/#rupture", label: "Wo Geld liegen bleibt" },
+  { href: "/#so-funktionierts", label: "So arbeitet 0Admin" },
+  { href: "/rechner/", label: "Geldfluss prüfen" },
+  { href: "/cockpit/", label: "Cockpit" },
+  { href: "/blog/", label: "Blog" },
+] as const;
+
 export function SiteOneHeader() {
   return (
     <header className="s1-header" aria-label="Hauptnavigation">
       <div className="s1-header__inner">
-        <a className="s1-brand" href="#top" aria-label="DPPFOR Startseite">
-          <img src="/images/logo.png" alt="" aria-hidden="true" />
+        <Link className="s1-brand" href="/" aria-label="DPPFOR Startseite">
+          <Image src="/images/logo.png" width={42} height={42} alt="" aria-hidden="true" priority />
           <span>
             <strong>DPPFOR</strong>
-            <small>0Admin · Self-Operating Geldfluss-Office</small>
+            <small>0Admin · Ihr Geldfluss von der Rechnung bis zur Zahlung.</small>
           </span>
-        </a>
+        </Link>
         <nav className="s1-nav" aria-label="Seitennavigation">
-          <a href="#rupture">Wo Geld liegen bleibt</a>
-          <a href="#so-funktionierts">So arbeitet 0Admin</a>
-          <a href="/rechner/">Geldfluss prüfen</a>
-          <a href="/cockpit/">Cockpit</a>
-          <a href="/blog/">Blog</a>
-          <a className="s1-nav__contact" href="#kontakt">Gespräch anfragen</a>
+          {navLinks.map((item) => (
+            <Link href={item.href} key={item.href}>{item.label}</Link>
+          ))}
+          <Link className="s1-nav__contact" href="/#kontakt">Gespräch anfragen</Link>
         </nav>
       </div>
     </header>
@@ -36,9 +45,13 @@ export function SiteOneHeroProblem() {
           <span>alles bezahlt?</span>
         </h1>
         <div className="s1-hero__bottom">
-          <p>0Admin zeigt, wo aus Leistung noch kein Geld geworden ist: bezahlt, offen, fällig oder zu klären.</p>
+          <p>
+            0Admin zeigt, wo aus Leistung noch kein Geld geworden ist:
+            <br />
+            Bezahlt, offen, fällig oder zu klären.
+          </p>
           <div className="s1-actions">
-            <a className="s1-button s1-button--warm" href="/rechner/">Geldfluss prüfen</a>
+            <Link className="s1-button s1-button--warm" href="/rechner/">Geldfluss prüfen</Link>
             <a className="s1-button s1-button--ghost" href="#so-funktionierts">Ablauf ansehen</a>
           </div>
         </div>
@@ -67,20 +80,23 @@ export function SiteOneTools() {
     <section className="s1-tools" aria-labelledby="tools-title">
       <div className="s1-tools__inner">
         <p className="s1-kicker">Vom Ablauf zum eigenen Betrieb</p>
-        <h2 id="tools-title">Sehen Sie, wo Geld hängt und wie 0Admin Fälle sichtbar hält.</h2>
+        <h2 id="tools-title">
+          <span className="s1-tools__title-line">Sehen Sie, wo Geld hängt</span>
+          <span className="s1-tools__title-line">und wie 0Admin Fälle sichtbar hält.</span>
+        </h2>
         <div className="s1-tools__grid">
-          <a href="/rechner/">
+          <Link href="/rechner/">
             <span>Selbstdiagnose</span>
             <strong>Geldfluss-Check</strong>
             <p>Schätzen Sie, wie viel Kapital in offenen Rechnungen gebunden ist und wie viel Zeit das Nachfassen kostet.</p>
             <em>Jetzt prüfen →</em>
-          </a>
-          <a href="/cockpit/">
+          </Link>
+          <Link href="/cockpit/">
             <span>Produktansicht</span>
-            <strong>Beispiel-Cockpit</strong>
+            <strong>0Admin Beispiel-Cockpit</strong>
             <p>Sehen Sie, wie ein Zahlungsfall von der Rechnung bis „bezahlt oder geklärt“ geführt wird.</p>
             <em>Fall ansehen →</em>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
@@ -106,14 +122,25 @@ export function SiteOneClosingFooter() {
       </section>
       <footer className="s1-footer">
         <div className="s1-footer__brand">
-          <img src="/images/logo.png" alt="" aria-hidden="true" />
+          <Image src="/images/logo.png" width={44} height={44} alt="" aria-hidden="true" />
           <div><strong>DPPFOR</strong><p>Data, Process, Payments for Operations &amp; Revenue</p></div>
         </div>
         <nav aria-label="Footer-Navigation">
-          <a href="/rechner/">Rechner</a>
-          <a href="/cockpit/">Cockpit</a>
-          <a href="/blog/">Blog</a>
-          <a href="https://dppfor.eu" aria-label="DPPFOR Startseite">DPPFOR</a>
+          <Link href="/rechner/">Rechner</Link>
+          <Link href="/cockpit/">Cockpit</Link>
+          <Link href="/blog/">Blog</Link>
+          <Link href="/impressum/">Impressum</Link>
+          <Link href="/datenschutz/">Datenschutz</Link>
+          <a
+            href="https://github.com/DPPFOR/0Admin-public"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub Repository DPPFOR/0Admin-public"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.01-2.04c-3.34.73-4.05-1.61-4.05-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.09-.75.08-.74.08-.74a2.53 2.53 0 0 1 1.84 1.24 2.56 2.56 0 0 0 3.49 1 2.57 2.57 0 0 1 .76-1.61c-2.67-.31-5.47-1.33-5.47-5.93a4.65 4.65 0 0 1 1.24-3.23 4.32 4.32 0 0 1 .12-3.18s1.01-.32 3.3 1.23a11.42 11.42 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23a4.32 4.32 0 0 1 .12 3.18 4.64 4.64 0 0 1 1.24 3.23c0 4.61-2.8 5.61-5.48 5.92a2.88 2.88 0 0 1 .82 2.24l-.01 3.32c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z" />
+            </svg>
+          </a>
         </nav>
       </footer>
     </>

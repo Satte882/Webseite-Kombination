@@ -22,8 +22,14 @@ export default function Home() {
           <div className="shell">
             <div className="section-heading section-heading--wide">
               <span className="eyebrow">Kontrolle vor dem nächsten Schritt</span>
-              <h2 id="approval-title">0Admin bereitet vor. Sie entscheiden bei Ausnahmen.</h2>
-              <p>Prüfbedürftige Daten, Änderungen und Freigaben bleiben sichtbar. Der nächste Schritt erfolgt erst, wenn der Vorgang eindeutig ist.</p>
+              <h2 id="approval-title">
+                0Admin bereitet vor. <span className="approval-heading__nowrap">Sie entscheiden bei Ausnahmen.</span>
+              </h2>
+              <p>
+                <span className="approval-copy__nowrap">
+                  Prüfbedürftige Daten, Änderungen und Freigaben bleiben sichtbar. Der nächste Schritt erfolgt erst, wenn der Vorgang eindeutig ist.
+                </span>
+              </p>
             </div>
             <HumanApprovalPanel />
           </div>
