@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SiteOneToolsAnimation } from "@/components/site-one-tools-animation";
+import { ContactRequestForm } from "@/components/contact-request-form";
 
 const navLinks = [
   { href: "/#rupture", label: "Wo Geld liegen bleibt" },
@@ -113,13 +114,7 @@ export function SiteOneClosingFooter() {
           <h2 id="contact-title">Wo hängt Ihr Geld gerade?</h2>
           <p>Prüfen Sie, welche offenen Posten Ihren Betrieb heute bremsen und welche Fälle zuerst geklärt werden müssen.</p>
         </div>
-        <form action="https://formspree.io/f/xwprlgpo" method="POST">
-          <label>Name<input type="text" name="name" autoComplete="name" required /></label>
-          <label>E-Mail<input type="email" name="email" autoComplete="email" required /></label>
-          <label>Nachricht<textarea name="message" rows={5} defaultValue="Ich möchte ein Gespräch zu 0Admin anfragen." required /></label>
-          <input type="hidden" name="_subject" value="Gesprächsanfrage zu 0Admin" />
-          <button type="submit">Gespräch anfragen</button>
-        </form>
+        <ContactRequestForm />
       </section>
       <footer className="s1-footer">
         <div className="s1-footer__brand">
