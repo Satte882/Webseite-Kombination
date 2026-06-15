@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { SiteOneToolsAnimation } from "@/components/site-one-tools-animation";
 
 const navLinks = [
   { href: "/#rupture", label: "Wo Geld liegen bleibt" },
@@ -13,7 +14,7 @@ export function SiteOneHeader() {
   return (
     <header className="s1-header" aria-label="Hauptnavigation">
       <div className="s1-header__inner">
-        <Link className="s1-brand" href="/" aria-label="DPPFOR Startseite">
+        <Link className="s1-brand" href="/#top" aria-label="DPPFOR Startseite">
           <Image src="/images/logo.png" width={42} height={42} alt="" aria-hidden="true" priority />
           <span>
             <strong>DPPFOR</strong>
@@ -77,21 +78,21 @@ export function SiteOneHeroProblem() {
 
 export function SiteOneTools() {
   return (
-    <section className="s1-tools" aria-labelledby="tools-title">
+    <SiteOneToolsAnimation>
       <div className="s1-tools__inner">
-        <p className="s1-kicker">Vom Ablauf zum eigenen Betrieb</p>
-        <h2 id="tools-title">
+        <p className="s1-kicker" data-tools-kicker>Vom Ablauf zum eigenen Betrieb</p>
+        <h2 id="tools-title" data-tools-title>
           <span className="s1-tools__title-line">Sehen Sie, wo Geld hängt</span>
           <span className="s1-tools__title-line">und wie 0Admin Fälle sichtbar hält.</span>
         </h2>
         <div className="s1-tools__grid">
-          <Link href="/rechner/">
+          <Link href="/rechner/" data-tools-card>
             <span>Selbstdiagnose</span>
             <strong>Geldfluss-Check</strong>
             <p>Schätzen Sie, wie viel Kapital in offenen Rechnungen gebunden ist und wie viel Zeit das Nachfassen kostet.</p>
             <em>Jetzt prüfen →</em>
           </Link>
-          <Link href="/cockpit/">
+          <Link href="/cockpit/" data-tools-card>
             <span>Produktansicht</span>
             <strong>0Admin Beispiel-Cockpit</strong>
             <p>Sehen Sie, wie ein Zahlungsfall von der Rechnung bis „bezahlt oder geklärt“ geführt wird.</p>
@@ -99,7 +100,7 @@ export function SiteOneTools() {
           </Link>
         </div>
       </div>
-    </section>
+    </SiteOneToolsAnimation>
   );
 }
 

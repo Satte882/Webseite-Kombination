@@ -16,9 +16,6 @@ Nicht übernommen wurden das Finanzdashboard und die generischen Benefits aus Si
 ## Lokale Nutzung
 
 ```bash
-npm install
-npm run lint
-npm run build
 npm run dev
 ```
 

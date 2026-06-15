@@ -18,7 +18,7 @@ export function SubpageTopbar({
 }) {
   return (
     <header className="subpage-topbar">
-      <Link className="brand" href="/" aria-label="Zurück zur DPPFOR Startseite">
+      <Link className="brand" href="/#top" aria-label="Zurück zur DPPFOR Startseite">
         <Image className="brand-logo" src="/images/logo.png" width={43} height={43} alt="" aria-hidden="true" />
         <span>
           <strong>DPPFOR</strong>
